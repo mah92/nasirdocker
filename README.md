@@ -1,3 +1,3 @@
-# سلام ای صاحب نعمت ها
-git clone https://hamgit.ir/ansar/nasirdocker.git && ./nasirdocker/build.sh
+# بندتم ای صاحب نعمت ها
+wget -O - https://raw.githubusercontent.com/mah92/NasirDocker/developing/build.sh | bash
 
