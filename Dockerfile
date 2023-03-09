@@ -32,7 +32,7 @@ ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platfor
 #  * libsm6, libice6, libxext6, libxrender1, libfontconfig1, libdbus-1-3 - dependencies of Qt bundle run-file
 #  * libc6:i386, libncurses5:i386, libstdc++6:i386, libz1:i386 - dependencides of android sdk binaries
 
-RUN dpkg --add-architecture i386 && apt-get -qq update && apt-get -qq dist-upgrade && apt-get install -qq -y --no-install-recommends \
+RUN dpkg --add-architecture i386 && apt-get update && apt-get dist-upgrade && apt-get install -y --no-install-recommends \
     git \
     openssh-client \
     ca-certificates \
@@ -55,9 +55,9 @@ RUN dpkg --add-architecture i386 && apt-get -qq update && apt-get -qq dist-upgra
     libncurses5:i386 \
     libstdc++6:i386 \
     libz1:i386 \
-    && apt-get -qq clean
+    && apt-get clean
 
-RUN apt-get install -qq -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
     bzip2 \
     unzip \
     gcc \
@@ -71,7 +71,7 @@ RUN apt-get install -qq -y --no-install-recommends \
 
 # Download & unpack android SDK
 # ENV JAVA_OPTS="-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee"
-RUN apt-get remove -qq -y openjdk-11-jre-headless
+RUN apt-get remove -y openjdk-11-jre-headless
 RUN curl -Lo /tmp/sdk-tools.zip 'https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip' \
     && mkdir -p ${ANDROID_HOME} \
     && unzip /tmp/sdk-tools.zip -d ${ANDROID_HOME} \
@@ -80,6 +80,7 @@ RUN curl -Lo /tmp/sdk-tools.zip 'https://dl.google.com/android/repository/sdk-to
 
 # GRADLE
 COPY minimal-android-project /opt/minimal-android-project
+RUN apt-get install -y --no-install-recommends gradle
 RUN cd /opt/minimal-android-project/ \
     && gradle wrapper --distribution-type all
 #  && ./gradlew
@@ -123,18 +124,18 @@ RUN for tc in \
       ; done
 
 # cppcheck and related stuff
-RUN apt-get install -qq -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
     cppcheck pip 
 RUN pip install cppcheck-codequality
 
 # Just for tests
-#RUN apt install -qq -y --no-install-recommends build-essential
+#RUN apt install -y --no-install-recommends build-essential
 
 # Reconfigure locale
 RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
 
 # gitlab-runner
-##RUN apt-get install -qq -y --no-install-recommends gitlab-runner
+##RUN apt-get install -y --no-install-recommends gitlab-runner
 RUN curl -L --output /usr/local/bin/gitlab-runner "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64"
 RUN chmod +x /usr/local/bin/gitlab-runner
 RUN useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
