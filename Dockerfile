@@ -17,7 +17,7 @@ RUN gitlab-runner register \
   --url "https://hamgit.ir/" \
   --registration-token "GR1348941kqbDiym8dnKHz83hmxf-" \
   --executor "shell" \
-  --description "hamravesh-runner-munner-tester" \
+  --description "hamravesh-runner-munner-toster" \
   --locked="false"
 
 CMD ["/bin/sh","-c","sudo gitlab-runner start; sudo gitlab-runner verify; while true; do echo Alhamdolellah; sleep 5;done"]
