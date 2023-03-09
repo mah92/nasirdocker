@@ -1,4 +1,4 @@
-sudo apt install -y --no-install-recommends docker xdotool
+sudo apt install -y --no-install-recommends docker docker.io xdotool
 while true; do xdotool key ctrl; sleep 60; done &
 ROOT=~/Programming
 mkdir $ROOT
