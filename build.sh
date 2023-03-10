@@ -1,4 +1,3 @@
-#!/bin/sh
 sudo dnf install -y docker xdotool
 sudo apt install -y --no-install-recommends docker docker.io xdotool git
 while true; do xdotool key ctrl; sleep 60; done &
