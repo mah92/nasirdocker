@@ -78,12 +78,18 @@ RUN curl -Lo /tmp/sdk-tools.zip 'https://dl.google.com/android/repository/sdk-to
     && rm -f /tmp/sdk-tools.zip \
     && yes | sdkmanager --licenses && sdkmanager --verbose "platforms;${SDK_PLATFORM}" "build-tools;${SDK_BUILD_TOOLS}" ${SDK_PACKAGES}
 
-# GRADLE
+# Download and cache gradle 
+RUN mkdir /tmp/android \
+    && curl -Lo /tmp/android/gradle.zip "https://services.gradle.org/distributions/gradle-8.0.1-bin.zip" \
+    && unzip /tmp/android/gradle.zip -d /opt/gradle  \
+    && rm -rf /tmp/android
+#RUN apt-get install -y --no-install-recommends gradle
+ENV PATH /opt/gradle/gradle-8.0.1/bin:${PATH}
+
 COPY minimal-android-project /opt/minimal-android-project
-RUN apt-get install -y --no-install-recommends gradle
 RUN cd /opt/minimal-android-project/ \
-    && gradle wrapper --distribution-type all
-#  && ./gradlew
+    && gradle wrapper --distribution-type all \
+# && ./gradlew
 
 # Download & unpack android NDK & remove any platform which is not 
 RUN mkdir /tmp/android \
