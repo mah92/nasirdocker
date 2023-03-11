@@ -32,7 +32,10 @@ ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platfor
 #  * libsm6, libice6, libxext6, libxrender1, libfontconfig1, libdbus-1-3 - dependencies of Qt bundle run-file
 #  * libc6:i386, libncurses5:i386, libstdc++6:i386, libz1:i386 - dependencides of android sdk binaries
 
-RUN dpkg --add-architecture i386 && apt-get update && apt-get dist-upgrade && apt-get install -y --no-install-recommends \
+RUN dpkg --add-architecture i386
+RUN apt-get update
+RUN apt-get dist-upgrade
+RUN apt-get install -y --no-install-recommends \
     git \
     openssh-client \
     ca-certificates \
@@ -54,8 +57,8 @@ RUN dpkg --add-architecture i386 && apt-get update && apt-get dist-upgrade && ap
     libc6:i386 \
     libncurses5:i386 \
     libstdc++6:i386 \
-    libz1:i386 \
-    && apt-get clean
+    libz1:i386
+RUN apt-get clean
 
 RUN apt-get install -y --no-install-recommends \
     bzip2 \
