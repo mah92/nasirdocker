@@ -1,6 +1,7 @@
-sudo dnf install -y docker xdotool
-sudo apt install -y --no-install-recommends docker docker.io xdotool git
-while true; do xdotool key ctrl; sleep 60; done &
+#sudo dnf install -y docker xdotool
+#sudo apt install -y --no-install-recommends xdotool
+sudo apt install -y --no-install-recommends docker docker.io git
+#while true; do xdotool key ctrl; sleep 60; done &
 ROOT=~/Desktop
 mkdir $ROOT
 cd $ROOT
