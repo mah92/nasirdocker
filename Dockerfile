@@ -91,7 +91,7 @@ ENV PATH /opt/gradle/gradle-4.6/bin:${PATH}
 
 COPY minimal-android-project /opt/minimal-android-project
 RUN cd /opt/minimal-android-project/ \
-    && gradle wrapper --distribution-type all \
+    && gradle wrapper --distribution-type all
 # && ./gradlew
 
 # Download & unpack android NDK & remove any platform which is not 
