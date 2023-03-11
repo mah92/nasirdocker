@@ -83,7 +83,6 @@ RUN curl -Lo /tmp/sdk-tools.zip 'https://dl.google.com/android/repository/sdk-to
 
 # Download and cache gradle 
 RUN mkdir /tmp/android \
-https://gradle.org/next-steps/?version=4.6&format=bin
     && curl -Lo /tmp/android/gradle.zip "https://services.gradle.org/distributions/gradle-4.6-bin.zip" \
     && unzip /tmp/android/gradle.zip -d /opt/gradle  \
     && rm -rf /tmp/android
