@@ -35,23 +35,46 @@ REPOSITORY           TAG          IMAGE ID            CREATED             VIRTUA
 docker-whale         latest       7d9495d03763        38 minutes ago      273.7 MB
 docker/whalesay      latest       fb434121fc77        4 hours ago         247 MB
 hello-world          latest       91c95931e552        5 weeks ago         910 B
-```
 
-$ docker tag 7d9495d03763 yourhubusername/docker-whale:latest
+$ docker tag 7d9495d03763 yourhubusername/android-qt:latest
 
 $ docker login --username=yourhubusername --email=youremail@company.com
 
 Password:
 
-$ docker push yourhubusername/docker-whale
+$ docker push yourhubusername/android-qt
+```
 
 ## کارهای دیگر
-### گرفتن ایمیج
- $ docker pull yourhubusername/docker-whale
+### دریافت ایمیج از ابر
+```
+$ docker pull yourhubusername/android-qt
+```
 ### پاک کردن ایمیج
 ```
 $ docker rmi -f 7d9495d03763
-$ docker rmi -f docker-whale
+$ docker rmi -f android-qt
 ```
-### اجرا
-$ docker run maryatdocker/docker-whale
+### ذخیره و لود ایمیج از فایل
+```
+$ docker save android-qt:10 > android-qt-10-saved.tar
+$ docker load < android-qt-10-saved.tar
+```
+### اجرا(تبدیل ایمیج به کانتینر)
+```
+$ docker run maryatdocker/android-qt
+```
+### گرفتن لیست ایمیج های درحال اجرا
+```
+$ docker ps -a
+```
+### حذف کانتینر
+```
+$ docker rm <container id>
+```
+### ذخیره و لود کانتینر
+
+```
+$ docker export <CONTAINER ID> > IMAGE-NAME-exported.tar
+$ docker import xxx-exported.tar REPO:TAG
+```
