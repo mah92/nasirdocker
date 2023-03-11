@@ -87,7 +87,7 @@ RUN mkdir /tmp/android \
     && unzip /tmp/android/gradle.zip -d /opt/gradle  \
     && rm -rf /tmp/android
 #RUN apt-get install -y --no-install-recommends gradle
-ENV PATH /opt/gradle/gradle-8.0.1/bin:${PATH}
+ENV PATH /opt/gradle/gradle-4.6/bin:${PATH}
 
 COPY minimal-android-project /opt/minimal-android-project
 RUN cd /opt/minimal-android-project/ \
