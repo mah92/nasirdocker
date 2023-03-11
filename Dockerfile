@@ -116,7 +116,7 @@ COPY install-qt.sh /tmp/qt/
 RUN for tc in \
         "android_armv7" \
         "android_arm64_v8a" \
-        ; do sudo /tmp/qt/install-qt.sh --version ${QT_VERSION} --target android --directory "${QT_PATH}" --toolchain $tc \
+        ; do /tmp/qt/install-qt.sh --version ${QT_VERSION} --target android --directory "${QT_PATH}" --toolchain $tc \
       qtbase \
       qtsensors \
       qtquickcontrols2 \
