@@ -169,4 +169,4 @@ ENV PATH_TO_CERES_SOURCE /opt/ceres-solver
 #RUN cd $PATH_TO_CERES_SOURCE && mkdir build-armeabi-v7a && cd build-armeabi-v7a \
 #    EIGEN_PATH=$PATH_TO_EIGEN_SOURCE ndk-build -j
 
-CMD ["/bin/sh","-c","sudo gitlab-runner start; sudo gitlab-runner verify; while true; sleep 5;done"]
+CMD ["/bin/sh","-c","sudo gitlab-runner start; sudo gitlab-runner verify; while true; do echo Alhamdolellah; sleep 5;done"]
