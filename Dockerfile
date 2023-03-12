@@ -161,6 +161,30 @@ RUN gitlab-runner register \
 RUN cd /opt && git clone -b 3.3.3 https://gitlab.com/libeigen/eigen.git --recursive
 ENV PATH_TO_EIGEN_SOURCE /opt/eigen
 
+RUN cd $PATH_TO_EIGEN_SOURCE && mkdir build-armeabi-v7a && cd build-armeabi-v7a \
+&& cmake \
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_ANDROID_API=$SDK_PLATFORM \
+    -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a \
+    -DCMAKE_ANDROID_STL_TYPE=c++_shared \
+    -DCMAKE_Fortran_COMPILER= \
+    -DCMAKE_SYSTEM_NAME=Android \
+    -DEIGEN_BUILD_DOC=OFF
+RUN cmake --build . \
+          --config Release
+
+RUN cd $PATH_TO_EIGEN_SOURCE && mkdir build-arm64-v8a && cd build-arm64-v8a \
+&& cmake \
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_ANDROID_API=$SDK_PLATFORM \
+    -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a \
+    -DCMAKE_ANDROID_STL_TYPE=c++_shared \
+    -DCMAKE_Fortran_COMPILER= \
+    -DCMAKE_SYSTEM_NAME=Android \
+    -DEIGEN_BUILD_DOC=OFF
+RUN cmake --build . \
+          --config Release
+
 # Compile ceressolver
 RUN cd /opt && git clone -b 2.1.0 https://ceres-solver.googlesource.com/ceres-solver --recursive
 ENV PATH_TO_CERES_SOURCE /opt/ceres-solver
@@ -168,19 +192,19 @@ ENV PATH_TO_CERES_SOURCE /opt/ceres-solver
 RUN cd $PATH_TO_CERES_SOURCE && mkdir build-armeabi-v7a && cd build-armeabi-v7a \
     && cmake \
         -DCMAKE_TOOLCHAIN_FILE= $ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake \
-        -DEigen3_DIR=$PATH_TO_EIGEN_SOURCE/cmake/FindEigen3.cmake \
+        -DEigen3_DIR=$PATH_TO_EIGEN_SOURCE/build-armeabi-v7a \
         -DANDROID_ABI=armeabi-v7a \
         -DANDROID_STL=c++_shared \
         -DANDROID_NATIVE_API_LEVEL=$SDK_PLATFORM \
         -DBUILD_SHARED_LIBS=ON \
         -DMINIGLOG=ON \
-        $PATH_TO_CERES_SOURCE \
+        .. \
     && cmake --build .
     
 RUN cd $PATH_TO_CERES_SOURCE && mkdir build-arm64-v8a && cd build \
     && cmake \
         -DCMAKE_TOOLCHAIN_FILE= $ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake \
-        -DEigen3_DIR=$PATH_TO_EIGEN_SOURCE/cmake/FindEigen3.cmake \
+        -DEigen3_DIR=$PATH_TO_EIGEN_SOURCE/build-arm64-v8a \
         -DANDROID_ABI=arm64-v8a \
         -DANDROID_STL=c++_shared \
         -DANDROID_NATIVE_API_LEVEL=$SDK_PLATFORM \
