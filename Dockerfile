@@ -5,6 +5,7 @@ MAINTAINER Rabit <home@rabits.org> (@rabits)
 ARG QT_VERSION=5.12.10
 ARG NDK_VERSION=r21
 ARG SDK_PLATFORM=android-29
+ARG ANDROID_API=29
 ARG SDK_BUILD_TOOLS=28.0.3
 ARG SDK_PACKAGES="tools platform-tools"
 
@@ -164,7 +165,7 @@ ENV PATH_TO_EIGEN_SOURCE /opt/eigen
 RUN cd $PATH_TO_EIGEN_SOURCE && mkdir build-armeabi-v7a && cd build-armeabi-v7a \
 && cmake \
     -DBUILD_TESTING=OFF \
-    -DCMAKE_ANDROID_API=$SDK_PLATFORM \
+    -DCMAKE_ANDROID_API=$ANDROID_API \
     -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a \
     -DCMAKE_ANDROID_STL_TYPE=c++_shared \
     -DCMAKE_Fortran_COMPILER= \
@@ -177,7 +178,7 @@ RUN cmake --build . \
 RUN cd $PATH_TO_EIGEN_SOURCE && mkdir build-arm64-v8a && cd build-arm64-v8a \
 && cmake \
     -DBUILD_TESTING=OFF \
-    -DCMAKE_ANDROID_API=$SDK_PLATFORM \
+    -DCMAKE_ANDROID_API=$ANDROID_API \
     -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a \
     -DCMAKE_ANDROID_STL_TYPE=c++_shared \
     -DCMAKE_Fortran_COMPILER= \
