@@ -166,6 +166,9 @@ ENV PATH_TO_EIGEN_SOURCE /opt/eigen
 RUN cd /opt && git clone -b 1.12.0 https://ceres-solver.googlesource.com/ceres-solver --recursive
 ENV PATH_TO_CERES_SOURCE /opt/ceres-solver
 
+COPY Android.mk $PATH_TO_CERES_SOURCE/jni/
+COPY Application.mk $PATH_TO_CERES_SOURCE/jni/
+
 #RUN cd $PATH_TO_CERES_SOURCE && mkdir build-armeabi-v7a && cd build-armeabi-v7a \
 #    EIGEN_PATH=$PATH_TO_EIGEN_SOURCE ndk-build -j
 
