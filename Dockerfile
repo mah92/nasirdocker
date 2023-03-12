@@ -169,7 +169,7 @@ RUN cd $PATH_TO_EIGEN_SOURCE && mkdir build-armeabi-v7a && cd build-armeabi-v7a 
     -DCMAKE_ANDROID_STL_TYPE=c++_shared \
     -DCMAKE_Fortran_COMPILER= \
     -DCMAKE_SYSTEM_NAME=Android \
-    -DEIGEN_BUILD_DOC=OFF
+    -DEIGEN_BUILD_DOC=OFF \
     ..
 RUN cmake --build . \
           --config Release
@@ -182,7 +182,7 @@ RUN cd $PATH_TO_EIGEN_SOURCE && mkdir build-arm64-v8a && cd build-arm64-v8a \
     -DCMAKE_ANDROID_STL_TYPE=c++_shared \
     -DCMAKE_Fortran_COMPILER= \
     -DCMAKE_SYSTEM_NAME=Android \
-    -DEIGEN_BUILD_DOC=OFF
+    -DEIGEN_BUILD_DOC=OFF \
     ..
 RUN cmake --build . \
           --config Release
