@@ -7,4 +7,6 @@ mkdir $ROOT
 cd $ROOT
 git clone https://github.com/mah92/nasirdocker.git 
 cd nasirdocker
+sudo chmod +x extract-qt-installer.sh
+sudo chmod +x install-qt.sh
 sudo docker build -t android-qt:10 --file ./Dockerfile .
