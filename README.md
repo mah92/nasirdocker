@@ -78,3 +78,7 @@ $ docker rm <container id>
 $ docker export <CONTAINER ID> > IMAGE-NAME-exported.tar
 $ docker import xxx-exported.tar REPO:TAG
 ```
+### رفتن به داخل کانتینر
+```
+docker exec -it <container_name> bash
+```
