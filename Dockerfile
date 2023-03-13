@@ -142,21 +142,6 @@ RUN apt install -y --no-install-recommends build-essential
 
 # Reconfigure locale
 RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
-
-# gitlab-runner
-##RUN apt-get install -y --no-install-recommends gitlab-runner
-RUN curl -L --output /usr/local/bin/gitlab-runner "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64"
-RUN chmod +x /usr/local/bin/gitlab-runner
-RUN useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
-RUN gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
-RUN gitlab-runner register \
-  --non-interactive \
-  --url "https://hamgit.ir/" \
-  --registration-token "GR1348941kqbDiym8dnKHz83hmxf-" \
-  --executor "shell" \
-  --shell "bash" \
-  --description "android-deploy-runneru" \
-  --locked="false"
   
 # Eigen 3.3.3
 RUN cd /opt && git clone -b 3.3.3 https://gitlab.com/libeigen/eigen.git --recursive
@@ -183,4 +168,19 @@ RUN rm -rf /opt/ceres-solver/obj/local/arm64_v8a/objs
 #/opt/ceres-solver/include
 #e.g.: /opt/ceres-solver/include/ceres/ceres.h
 
+# gitlab-runner
+##RUN apt-get install -y --no-install-recommends gitlab-runner
+RUN curl -L --output /usr/local/bin/gitlab-runner "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64"
+RUN chmod +x /usr/local/bin/gitlab-runner
+RUN useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
+RUN gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
+RUN gitlab-runner register \
+  --non-interactive \
+  --url "https://hamgit.ir/" \
+  --registration-token "GR1348941kqbDiym8dnKHz83hmxf-" \
+  --executor "shell" \
+  --shell "bash" \
+  --description "android-deploy-runneru" \
+  --locked="false"
+  
 CMD ["/bin/sh","-c","sudo gitlab-runner start; sudo gitlab-runner verify; while true; do echo Alhamdolellah; sleep 5;done"]
