@@ -137,8 +137,8 @@ RUN apt-get install -y --no-install-recommends \
     cppcheck pip 
 RUN pip install cppcheck-codequality
 
-# Just for tests
-#RUN apt install -y --no-install-recommends build-essential
+# Just for tests(like unit tests)
+RUN apt install -y --no-install-recommends build-essential
 
 # Reconfigure locale
 RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
@@ -161,6 +161,9 @@ RUN gitlab-runner register \
 # Eigen 3.3.3
 RUN cd /opt && git clone -b 3.3.3 https://gitlab.com/libeigen/eigen.git --recursive
 ENV PATH_TO_EIGEN_SOURCE /opt/eigen
+#include dir:
+#/opt/eigen
+#e.g.: /opt/eigen/Eigen/Dense
 
 # Ceressolver 1.12.0
 RUN cd /opt && git clone -b 1.12.0 https://ceres-solver.googlesource.com/ceres-solver --recursive
@@ -169,7 +172,15 @@ ENV PATH_TO_CERES_SOURCE /opt/ceres-solver
 COPY Android.mk $PATH_TO_CERES_SOURCE/jni/
 COPY Application.mk $PATH_TO_CERES_SOURCE/jni/
 
-#RUN cd $PATH_TO_CERES_SOURCE && mkdir build-armeabi-v7a && cd build-armeabi-v7a \
-#    EIGEN_PATH=$PATH_TO_EIGEN_SOURCE ndk-build -j
+RUN cd /opt/ceres-solver \
+    && EIGEN_PATH=/opt/eigen /opt/android-ndk/ndk-build -j 1
+RUN rm -rf /opt/ceres-solver/obj/local/armeabi-v7a/objs
+RUN rm -rf /opt/ceres-solver/obj/local/arm64_v8a/objs
+#libs:
+#/opt/ceres-solver/obj/local/armeabi-v7a/libceres.so
+#/opt/ceres-solver/obj/local/arm64_v8a/libceres.so
+#include dir:
+#/opt/ceres-solver/include
+#e.g.: /opt/ceres-solver/include/ceres/ceres.h
 
 CMD ["/bin/sh","-c","sudo gitlab-runner start; sudo gitlab-runner verify; while true; do echo Alhamdolellah; sleep 5;done"]
